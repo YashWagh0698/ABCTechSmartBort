@@ -1,0 +1,526 @@
+[
+  {
+    "id": "D01",
+    "type": "direct",
+    "question": "How many paid leave days do employees get per year?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      "24 paid leave days per year"
+    ]
+  },
+  {
+    "id": "D02",
+    "type": "direct",
+    "question": "What are the standard working hours?",
+    "answer_available": true,
+    "expected_section": "Working Hours and Attendance",
+    "evidence": [
+      "9:00 AM to 6:00 PM"
+    ]
+  },
+  {
+    "id": "D03",
+    "type": "direct",
+    "question": "On which day of the month is salary paid?",
+    "answer_available": true,
+    "expected_section": "Salary and Compensation",
+    "evidence": [
+      [
+        "last working day of each month",
+        "last working day of every month"
+      ]
+    ]
+  },
+  {
+    "id": "D04",
+    "type": "direct",
+    "question": "How many casual leave days are there per year?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      [
+        "Casual Leave; Days Per Year: 8",
+        "8 casual"
+      ]
+    ]
+  },
+  {
+    "id": "D05",
+    "type": "direct",
+    "question": "What is the notice period for a confirmed employee?",
+    "answer_available": true,
+    "expected_section": "HR Information",
+    "evidence": [
+      [
+        "levels L1 to L4; Notice Period: 60 days",
+        "60 days for confirmed employees"
+      ]
+    ]
+  },
+  {
+    "id": "D06",
+    "type": "direct",
+    "question": "What is the health insurance cover amount?",
+    "answer_available": true,
+    "expected_section": "Benefits",
+    "evidence": [
+      "₹5,00,000"
+    ]
+  },
+  {
+    "id": "D07",
+    "type": "direct",
+    "question": "Which days do employees work from the office?",
+    "answer_available": true,
+    "expected_section": "Work Model",
+    "evidence": [
+      "Tuesday, Wednesday and Thursday"
+    ]
+  },
+  {
+    "id": "D08",
+    "type": "direct",
+    "question": "How soon must a lost laptop be reported?",
+    "answer_available": true,
+    "expected_section": "Employee Policies",
+    "evidence": [
+      "within 1 hour"
+    ]
+  },
+  {
+    "id": "D09",
+    "type": "direct",
+    "question": "How long is the probation period?",
+    "answer_available": true,
+    "expected_section": "HR Information",
+    "evidence": [
+      "probation period is 3 months"
+    ]
+  },
+  {
+    "id": "D10",
+    "type": "direct",
+    "question": "How much is the annual learning budget?",
+    "answer_available": true,
+    "expected_section": "Benefits",
+    "evidence": [
+      "₹40,000"
+    ]
+  },
+  {
+    "id": "D11",
+    "type": "direct",
+    "question": "How long is maternity leave?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      "26 weeks"
+    ]
+  },
+  {
+    "id": "D12",
+    "type": "direct",
+    "question": "How much is the referral bonus for hiring a level L4 engineer?",
+    "answer_available": true,
+    "expected_section": "Benefits",
+    "evidence": [
+      "₹50,000 for hires at level L4 and above"
+    ]
+  },
+  {
+    "id": "D13",
+    "type": "direct",
+    "question": "When do salary increments take effect?",
+    "answer_available": true,
+    "expected_section": "Salary and Compensation",
+    "evidence": [
+      "increments take effect from 1 April"
+    ]
+  },
+  {
+    "id": "D14",
+    "type": "direct",
+    "question": "How many public holidays does the company provide?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      "12 public holidays per year"
+    ]
+  },
+  {
+    "id": "D15",
+    "type": "direct",
+    "question": "What is the dress code?",
+    "answer_available": true,
+    "expected_section": "Employee Policies",
+    "evidence": [
+      "business casual"
+    ]
+  },
+  {
+    "id": "D16",
+    "type": "direct",
+    "question": "Within how many days must an expense claim be submitted?",
+    "answer_available": true,
+    "expected_section": "Internal Processes",
+    "evidence": [
+      "within 30 days of the expense"
+    ]
+  },
+  {
+    "id": "D17",
+    "type": "direct",
+    "question": "What is the minimum password length?",
+    "answer_available": true,
+    "expected_section": "Employee Policies",
+    "evidence": [
+      "at least 12 characters"
+    ]
+  },
+  {
+    "id": "D18",
+    "type": "direct",
+    "question": "What email address do I use for IT problems?",
+    "answer_available": true,
+    "expected_section": "Internal Processes",
+    "evidence": [
+      "itsupport@abctech.example"
+    ]
+  },
+  {
+    "id": "P01",
+    "type": "paraphrase",
+    "question": "How much annual paid time off does an employee get?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      "24 paid leave days per year"
+    ]
+  },
+  {
+    "id": "P02",
+    "type": "paraphrase",
+    "question": "What time do I need to be at my desk each day?",
+    "answer_available": true,
+    "expected_section": "Working Hours and Attendance",
+    "evidence": [
+      "9:00 AM to 6:00 PM"
+    ]
+  },
+  {
+    "id": "P03",
+    "type": "paraphrase",
+    "question": "When does my pay reach my bank account?",
+    "answer_available": true,
+    "expected_section": "Salary and Compensation",
+    "evidence": [
+      [
+        "last working day of each month",
+        "last working day of every month"
+      ]
+    ]
+  },
+  {
+    "id": "P04",
+    "type": "paraphrase",
+    "question": "How much notice do I have to give before I quit?",
+    "answer_available": true,
+    "expected_section": "HR Information",
+    "evidence": [
+      [
+        "levels L1 to L4; Notice Period: 60 days",
+        "60 days for confirmed employees"
+      ]
+    ]
+  },
+  {
+    "id": "P05",
+    "type": "paraphrase",
+    "question": "What is the maximum medical cover the company gives me?",
+    "answer_available": true,
+    "expected_section": "Benefits",
+    "evidence": [
+      "₹5,00,000"
+    ]
+  },
+  {
+    "id": "P06",
+    "type": "paraphrase",
+    "question": "Do I have to come to the office every day?",
+    "answer_available": true,
+    "expected_section": "Work Model",
+    "evidence": [
+      "Tuesday, Wednesday and Thursday"
+    ]
+  },
+  {
+    "id": "P07",
+    "type": "paraphrase",
+    "question": "What should I do if my laptop gets stolen?",
+    "answer_available": true,
+    "expected_section": "Employee Policies",
+    "evidence": [
+      "within 1 hour"
+    ]
+  },
+  {
+    "id": "P08",
+    "type": "paraphrase",
+    "question": "Can I carry over my unused vacation days to next year?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      "Only Earned Leave can be carried forward"
+    ]
+  },
+  {
+    "id": "P09",
+    "type": "paraphrase",
+    "question": "How much money does the company give me for courses and training?",
+    "answer_available": true,
+    "expected_section": "Benefits",
+    "evidence": [
+      "₹40,000"
+    ]
+  },
+  {
+    "id": "P10",
+    "type": "paraphrase",
+    "question": "How many weeks off does a new mother get?",
+    "answer_available": true,
+    "expected_section": "Leave Policy",
+    "evidence": [
+      "26 weeks"
+    ]
+  },
+  {
+    "id": "P11",
+    "type": "paraphrase",
+    "question": "Am I allowed to take a second job?",
+    "answer_available": true,
+    "expected_section": "Employee Policies",
+    "evidence": [
+      "paid work for another employer"
+    ]
+  },
+  {
+    "id": "P12",
+    "type": "paraphrase",
+    "question": "How do I get my money back after a business trip?",
+    "answer_available": true,
+    "expected_section": "Internal Processes",
+    "evidence": [
+      "Submit the claim in the ABC People portal"
+    ]
+  },
+  {
+    "id": "P13",
+    "type": "paraphrase",
+    "question": "What clothes can I wear to work?",
+    "answer_available": true,
+    "expected_section": "Employee Policies",
+    "evidence": [
+      "business casual"
+    ]
+  },
+  {
+    "id": "P14",
+    "type": "paraphrase",
+    "question": "How many times can I be late before it counts against me?",
+    "answer_available": true,
+    "expected_section": "Working Hours and Attendance",
+    "evidence": [
+      "Three late arrivals in a calendar month"
+    ]
+  },
+  {
+    "id": "M01",
+    "type": "multi_section",
+    "question": "Which days am I in the office, and how many days a year can I work from another city?",
+    "answer_available": true,
+    "expected_section": "Work Model",
+    "evidence": [
+      "Tuesday, Wednesday and Thursday",
+      "up to 20 days per calendar year"
+    ]
+  },
+  {
+    "id": "M02",
+    "type": "multi_section",
+    "question": "What are the working hours and how many days a week must I be in the office?",
+    "answer_available": true,
+    "expected_section": [
+      "Working Hours and Attendance",
+      "Work Model"
+    ],
+    "evidence": [
+      "9:00 AM to 6:00 PM",
+      "Tuesday, Wednesday and Thursday"
+    ]
+  },
+  {
+    "id": "M03",
+    "type": "multi_section",
+    "question": "When is salary paid and when do increments take effect?",
+    "answer_available": true,
+    "expected_section": "Salary and Compensation",
+    "evidence": [
+      [
+        "last working day of each month",
+        "last working day of every month"
+      ],
+      "increments take effect from 1 April"
+    ]
+  },
+  {
+    "id": "M04",
+    "type": "multi_section",
+    "question": "How long is probation and the notice period for a level L5 manager?",
+    "answer_available": true,
+    "expected_section": "HR Information",
+    "evidence": [
+      "6 months for levels L5 and above",
+      [
+        "levels L5 and above; Notice Period: 90 days",
+        "90 days at levels L5 and above"
+      ]
+    ]
+  },
+  {
+    "id": "U01",
+    "type": "unsupported",
+    "question": "What was the company's revenue last year?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "revenue"
+    ]
+  },
+  {
+    "id": "U02",
+    "type": "unsupported",
+    "question": "What is the company's stock price?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "stock price"
+    ]
+  },
+  {
+    "id": "U03",
+    "type": "unsupported",
+    "question": "Who is the CEO of ABC Tech?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "ceo"
+    ]
+  },
+  {
+    "id": "U04",
+    "type": "unsupported",
+    "question": "What is the company's policy on cryptocurrency payments?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "cryptocurrency"
+    ]
+  },
+  {
+    "id": "U05",
+    "type": "unsupported",
+    "question": "What is the weather like in Bengaluru today?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "weather"
+    ]
+  },
+  {
+    "id": "U06",
+    "type": "unsupported",
+    "question": "How do I bake a chocolate cake?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "cake"
+    ]
+  },
+  {
+    "id": "U07",
+    "type": "unsupported",
+    "question": "How many ESOPs do employees receive?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "esop"
+    ]
+  },
+  {
+    "id": "N01",
+    "type": "near_miss",
+    "question": "Does ABC Tech offer dental insurance?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "dental"
+    ],
+    "related_section": "Benefits"
+  },
+  {
+    "id": "N02",
+    "type": "near_miss",
+    "question": "How many sabbatical days can I take?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "sabbatical"
+    ],
+    "related_section": "Leave Policy"
+  },
+  {
+    "id": "N03",
+    "type": "near_miss",
+    "question": "What is the sports club membership benefit?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "sports club"
+    ],
+    "related_section": "Benefits"
+  },
+  {
+    "id": "N04",
+    "type": "near_miss",
+    "question": "Does the company provide pet insurance?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "pet insurance"
+    ],
+    "related_section": "Benefits"
+  },
+  {
+    "id": "N05",
+    "type": "near_miss",
+    "question": "What is the monthly stipend for interns?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "stipend"
+    ],
+    "related_section": "Salary and Compensation"
+  },
+  {
+    "id": "N06",
+    "type": "near_miss",
+    "question": "Does the company give a joining bonus?",
+    "answer_available": false,
+    "expected_section": null,
+    "absent_terms": [
+      "joining bonus"
+    ],
+    "related_section": "Salary and Compensation"
+  }
+]

@@ -1,0 +1,51 @@
+# =========================
+# Secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Python
+# =========================
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# =========================
+# Local vector database
+# =========================
+vector_db/chroma/*
+!vector_db/chroma/.gitkeep
+
+# =========================
+# Generated / processed data
+# =========================
+data/processed/*
+!data/processed/.gitkeep
+
+# =========================
+# Evaluation outputs
+# =========================
+evaluation/retrieval_results.json
+evaluation/evaluation_report.md
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Editor / OS
+# =========================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
