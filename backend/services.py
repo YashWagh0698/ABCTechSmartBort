@@ -10,6 +10,7 @@ from typing import Optional
 
 from backend.rag.embeddings import EmbeddingService, get_embedding_service
 from backend.rag.llm import LLMService, get_llm_service
+from backend.rag.rag_service import RAGService
 from backend.rag.retriever import Retriever
 from backend.rag.vector_store import VectorStore, get_vector_store
 
@@ -22,6 +23,7 @@ class Services:
         self._vector_store = vector_store
         self._llm_service = llm_service
         self._retriever = None
+        self._rag_service = None
 
     @property
     def embedding_service(self) -> EmbeddingService:
@@ -48,3 +50,10 @@ class Services:
         if self._llm_service is None:
             self._llm_service = get_llm_service()
         return self._llm_service
+
+    @property
+    def rag_service(self) -> RAGService:
+        """The whole question-answering pipeline (Step 12), built from the services above."""
+        if self._rag_service is None:
+            self._rag_service = RAGService(self.retriever, self.llm_service)
+        return self._rag_service

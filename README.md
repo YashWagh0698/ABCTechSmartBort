@@ -25,8 +25,8 @@ The project is built one step at a time. Each step is small, runnable and testab
 | 9 | Retrieval evaluation | Done |
 | 10 | LLM integration (`llm.py`) | Done |
 | 11 | Grounded prompt (`prompt_builder.py`) | Done |
-| 12 | Refusal / no-evidence logic (`relevance.py`) | Next |
-| 13 | Flask chat API (`/api/chat`) | Planned |
+| 12 | Refusal / no-evidence logic (`relevance.py`) | Done |
+| 13 | Flask chat API (`/api/chat`) | Next |
 | 14 | Frontend chat UI | Planned |
 | 15 | Source citations | Planned |
 | 16 | End-to-end testing | Planned |
@@ -93,7 +93,7 @@ Rule: the Flask routes stay thin. All RAG logic lives in `backend/rag/`.
 
 ## 7. Folder structure
 
-Items marked `*` were added in Step 2, `+` in Step 3, `~` in Step 4, `^` in Step 5, `#` in Steps 6-7, `@` in Steps 8-9, `%` in Step 10, `=` in Step 11.
+Items marked `*` were added in Step 2, `+` in Step 3, `~` in Step 4, `^` in Step 5, `#` in Steps 6-7, `@` in Steps 8-9, `%` in Step 10, `=` in Step 11, `!` in Step 12.
 
 ```
 ABCTechSmartBort/
@@ -121,6 +121,8 @@ ABCTechSmartBort/
 │   ├── search.py                   @ ask the retriever a question, see chunks and scores
 │   ├── check_llm.py                % checks YOUR LLM provider with one tiny request
 │   ├── show_prompt.py              = shows the exact prompt for a question; --ask sends it to your LLM
+│   ├── ask.py                      ! the WHOLE pipeline in the terminal, every stage visible
+│   ├── verify_step12.py            ! 41 offline checks (temporary stand-in for unit tests)
 │   ├── refresh_project_state.py    writes the generated file inventory into docs/PROJECT_STATE.md
 │   └── evaluate_retrieval.py       @ measures retrieval quality, writes the report
 ├── backend/
@@ -140,7 +142,10 @@ ABCTechSmartBort/
 │   │   ├── retriever.py            @ question -> closest chunks + similarity scores
 │   │   ├── evaluation.py           @ Recall@K, Precision@K, MRR, report writer
 │   │   ├── llm.py                  % LLMService: fake | anthropic | openai | ollama | openai-compatible
-│   │   └── prompt_builder.py       = question + passages -> grounded system/user prompt
+│   │   ├── prompt_builder.py       = question + passages -> grounded system/user prompt
+│   │   ├── relevance.py            ! enough evidence to ask the LLM? (similarity threshold)
+│   │   ├── answer_validator.py     ! checks the LLM's answer (numbers, leaks, refusals)
+│   │   └── rag_service.py          ! the whole pipeline for one question
 │   ├── models/
 │   │   ├── document.py             + ParsedDocument / ParsedSection / ParsedBlock
 │   │   ├── chunk.py                ~ Chunk
@@ -217,7 +222,7 @@ Defined in `.env.example`. Never commit your real `.env`.
 | `LLM_MAX_OUTPUT_TOKENS` | Longest answer (600). Raise it for models that "think" first, or answers come back empty | Step 10 |
 | `TOP_K` | How many chunks the retriever returns (default 5) | Step 8 |
 | `CONTEXT_MAX_CHARS` | Most characters of retrieved text placed in one prompt (default 12000). Lowest-ranked passages are dropped first | Step 11 |
-| `RELEVANCE_THRESHOLD` | Minimum **cosine similarity** (-1..1) for a chunk to count as evidence. **Not used yet and the default 0.75 is only a placeholder**: real matches usually score 0.3-0.6. Step 12 sets it from the Step 9 data. | Step 12 |
+| `RELEVANCE_THRESHOLD` | Minimum **cosine similarity** (-1..1) for a retrieved passage to count as evidence; if none reaches it the LLM is **not called**. Default **0.20, provisional and deliberately low** (it only removes clearly unrelated questions; re-tune it with the sweep in `evaluation/evaluation_report.md`). **If your `.env` still says 0.75 (the old placeholder), change it**: 0.75 would refuse almost everything | Step 12 |
 | `CHUNK_MAX_WORDS`, `CHUNK_OVERLAP_WORDS` | Chunk size limit and overlap, **in words** (default 150 / 20) | Step 4 |
 | `CHUNKS_PATH` | Where `chunks.json` is written | Step 4 |
 
@@ -277,6 +282,16 @@ See the grounded prompt, and ask your real model (Step 11):
 python scripts/show_prompt.py "How many paid leaves do I get?"          # prints the exact prompt; no LLM call, no key needed
 python scripts/show_prompt.py "How many paid leaves do I get?" --ask    # also sends it to YOUR LLM and prints the answer
 python scripts/show_prompt.py "leave policy" --top-k 5 --max-context-chars 1200   # watch the budget drop passages
+```
+
+Ask the whole pipeline (Step 12; uses your Groq settings from `.env`):
+
+```bash
+python scripts/ask.py "How many paid leaves do I get?"                 # every stage is printed: retrieve, relevance, LLM, validation
+python scripts/ask.py "Does ABC Tech offer dental insurance?" --show-prompt
+python scripts/ask.py "What was the revenue last year?" --threshold 0.30   # try another relevance threshold for one run
+python scripts/ask.py                                                  # interactive
+python scripts/verify_step12.py                                        # 41 offline checks; needs no key and no internet
 ```
 
 Build and look inside the search index (Steps 6-7), **without starting the server**:
@@ -469,7 +484,10 @@ The test facts are also listed in `docs/html_structure.md`.
 ## 15. Limitations (current)
 
 - Only one knowledge source (`company.html`) is supported.
-- Retrieval, the grounded prompt and the LLM exist, and `scripts/show_prompt.py --ask` connects them by hand, but there is **no automatic refusal or answer check yet** (Step 12) and no chat API (Step 13). The prompt tells the model to refuse; only a real model run shows whether it obeys.
+- The whole pipeline works from the terminal (`scripts/ask.py`) but there is **no chat API yet** (Step 13) and no frontend (Step 14).
+- **Step 12 has no pytest unit tests yet** (it was built without running pytest, at the user's request). It is covered by `scripts/verify_step12.py` (41 checks). Turning those into tests is the first job of the next step.
+- The answer validator checks **numbers, leaked rules, empty/long answers and refusals, not meaning**: a wrong claim that uses no new numbers passes, and a number is accepted if it appears in the best-matching passage even when it belongs to another fact there ("31 paid leave days" next to "31 March").
+- `RELEVANCE_THRESHOLD=0.20` is provisional (see the env table).
 - Prompt-injection defence lowers the risk but cannot make any model 100% safe.
 - The real LLM providers were only tested against a local fake server. Whether Anthropic / OpenAI accept our requests today is verified only when YOU run `check_llm.py`.
 - Retrieval evaluation numbers are only meaningful with the real embedding model. The offline `hashing` stand-in matches shared words only, and many chunks tie at score 0.000 with it, so their order is arbitrary and results can differ slightly between runs.
@@ -754,3 +772,36 @@ timeouts and bounded retries protect you from a hung or expensive call; test net
 
 **Concepts:** a grounded prompt = rules + evidence + question; untrusted text is data, never instructions; the safest defence is layers (constant rules, fenced data, neutralised delimiters, later a validator);
 tests can prove the structure holds but only a real model run shows whether it obeys.
+
+### Step 12 - Refusal logic and answer checking
+**No API endpoint yet.** Run `python scripts/ask.py "your question"`. **Built without running pytest (your request), verified with `scripts/verify_step12.py` instead.**
+
+**Built:**
+- `backend/rag/relevance.py` - runs **before** the LLM. Keeps only passages whose similarity is at least `RELEVANCE_THRESHOLD`; if none qualify the LLM is **not called**
+  and the fixed message *"I couldn't find information about this in the available company documentation."* is used (cheaper, safer). A passage exactly at the threshold is kept.
+  It warns loudly if the threshold looks like the old 0.75 placeholder.
+- `backend/rag/answer_validator.py` - runs **after** the LLM, with simple explainable checks: not empty or absurdly long; no copied system rules (7 words in a row) and no `<context>`/`<question>` tags;
+  **every number must be supported by the passage that best matches the wording of its sentence** (times like "9 AM" match "9:00 AM"; "5,00,000" matches itself; list markers are ignored);
+  a refusal sentence is recognised (a pure refusal is a valid outcome; a refusal next to real facts is a partial answer). Verdicts: `ok`, `refused`, `rejected`.
+- `backend/rag/rag_service.py` - the complete pipeline for one question, always ending in one status: `answered`, `refused`, `no_evidence`, `rejected` or `unavailable`.
+  A failing LLM becomes a safe message instead of a crash; an empty index or a bad question is still raised so the caller can report it. Logs contain counts and scores, never text.
+- `scripts/ask.py` shows every stage (retrieval scores, relevance decision, whether the LLM was called, validation verdict, answer, sources). `backend/services.py` gained a lazy `rag_service`.
+- `backend/config.py` and `.env.example`: `RELEVANCE_THRESHOLD` default changed from the placeholder **0.75 to 0.20**.
+
+**Why 0.20, and why a threshold cannot do the whole job:** with your real model, correct questions scored about 0.27-0.51 and off-topic ones 0.22-0.30, but "dental insurance" (a related topic the document never states) scored 0.43.
+So the threshold only removes clearly unrelated questions; the prompt rules (Step 11) and this validator carry the rest. Choose the final value from the sweep in `evaluation/evaluation_report.md`.
+
+**Try it (with your Groq key in `.env`):**
+
+| Question | What you should see |
+|---|---|
+| `How many paid leaves do I get?` | status ANSWERED, 24 days, sources listed |
+| `What is the weather in Bengaluru today?` | NO EVIDENCE, `[3] LLM NOT called` |
+| `What was the company's revenue last year?` | NO EVIDENCE or REFUSED (either is correct) |
+| `Does ABC Tech offer dental insurance?` | REFUSED (the model's "couldn't find" sentence), or REJECTED if it invents numbers; never a made-up dental policy |
+| `What are the working hours and who is the CEO?` | hours given, plus a "couldn't find" for the CEO (ANSWERED, partial) |
+
+**Verify:** `python scripts/verify_step12.py` prints `RESULT: 41 of 41 checks passed`; `pytest` still shows 602 passed (the existing tests are untouched).
+
+**Concepts:** two cheap guards around an expensive, fallible model: a gate before it (is there any evidence?) and a check after it (does the answer stick to the evidence?);
+a refusal is a feature, not a failure; every outcome gets an explicit status so nothing fails silently; validators have limits and the honest thing is to write them down.

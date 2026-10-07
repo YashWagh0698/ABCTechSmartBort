@@ -68,11 +68,14 @@ class Config:
     # --- RAG tuning ---
     # TOP_K: how many chunks the retriever returns (Step 8). Tested with real data in Step 9.
     TOP_K = int(os.getenv("TOP_K", "5"))
-    # RELEVANCE_THRESHOLD: the minimum COSINE SIMILARITY (-1..1, higher = closer) a chunk needs to
-    # count as evidence. It is NOT used yet (Step 12 uses it). 0.75 is only a PLACEHOLDER: with the
-    # default model, correct matches usually score about 0.3-0.6, so 0.75 would refuse almost
-    # everything. Step 9 measures real scores; the value is chosen from that data, not guessed.
-    RELEVANCE_THRESHOLD = float(os.getenv("RELEVANCE_THRESHOLD", "0.75"))
+    # RELEVANCE_THRESHOLD (Step 12): the minimum COSINE SIMILARITY (-1..1, higher = closer) a retrieved passage needs
+    # to count as evidence. If NO passage reaches it, the LLM is not called at all.
+    # 0.20 is PROVISIONAL and deliberately LOW: it only removes clearly unrelated questions. It was chosen from the few
+    # real-model scores seen so far (correct answers 0.27-0.51, off-topic 0.22-0.30). Similar-but-incorrect questions
+    # (dental insurance 0.43) score as high as correct ones, so no threshold can catch them: the prompt rules and the
+    # answer validator do. Re-tune it with the threshold sweep in evaluation/evaluation_report.md.
+    # (The old placeholder 0.75 would refuse almost everything; if your .env still says 0.75, change it.)
+    RELEVANCE_THRESHOLD = float(os.getenv("RELEVANCE_THRESHOLD", "0.20"))
     # Chunk limits are measured in WORDS (1 token is roughly 0.75 of a word).
     CHUNK_MAX_WORDS = int(os.getenv("CHUNK_MAX_WORDS", "150"))
     CHUNK_OVERLAP_WORDS = int(os.getenv("CHUNK_OVERLAP_WORDS", "20"))
